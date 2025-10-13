@@ -1,2 +1,5 @@
-API_TOKEN = "6584009995:AAFMOh4REMSIAbIz9IEysDkLwkNhl94bLq8"
-ADMIN_ID = [364603275,]
+import dotenv
+import os
+
+API_TOKEN = os.getenv("API_TOKEN")
+ADMIN_ID = list(map(int, os.getenv("ADMIN_ID", "").split(",")))
