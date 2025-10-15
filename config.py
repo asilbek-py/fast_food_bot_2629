@@ -1,6 +1,6 @@
 import dotenv
 import os
 
-API_TOKEN = os.getenv("API_TOKEN")
+API_TOKEN = str(os.getenv("API_TOKEN"))
 ADMIN_ID = os.getenv("ADMIN_ID")
 
