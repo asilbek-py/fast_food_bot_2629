@@ -19,7 +19,7 @@ bot = Bot(token=API_TOKEN)
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message):
-    if message.from_user.id in ADMIN_ID:
+    if message.from_user.id == ADMIN_ID:
         await message.answer(f"Assalomu alaykum, Admin {message.from_user.full_name}!", reply_markup=admin_main_menu)
     else:
         await message.answer(f"Assalomu alaykum, {message.from_user.full_name}!", reply_markup=main_menu)
