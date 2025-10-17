@@ -23,9 +23,10 @@ async def command_start_handler(message: Message):
         await message.answer(f"Assalomu alaykum, {message.from_user.full_name}!", reply_markup=main_menu())
 
 async def back_handler(message: Message, state: FSMContext):
-    await message.answer("Asosiy menyuga qaytildi.", reply_markup=main_menu())
-    await state.clear()
-
+    if message.from_user.id == ADMIN_ID:
+        await message.answer("Admin menyusiga qaytdingiz.", reply_markup=admin_main_menu())
+    else:
+        await message.answer("Asosiy menyuga qaytdingiz.", reply_markup=main_menu())
 
 # Show categories
 async def show_menu_handler(message: Message, state: FSMContext):
