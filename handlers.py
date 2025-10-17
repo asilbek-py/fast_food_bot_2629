@@ -144,18 +144,19 @@ async def product_receive_image(message: Message, state: FSMContext):
         # take the biggest size
         file_id = message.photo[-1].file_id
         image_file_id = file_id
+        add_product(category_id, name, description, price, image_file_id=image_file_id)
     else:
         # treat text as URL
         maybe_url = message.text.strip()
         if maybe_url.startswith("http://") or maybe_url.startswith("https://"):
             image_url = maybe_url
+            add_product(category_id, name, description, price, image_url=image_url)
         else:
             # if user wrote something else
             await message.answer("Iltimos rasm yuboring yoki valid URL yozing.")
             return
 
     # save product
-    add_product(category_id, name, description, price, image_url=image_url, image_file_id=image_file_id)
     await message.answer(f"✅ Mahsulot '{name}' qo'shildi!", reply_markup=admin_main_menu())
     await state.clear()
 
