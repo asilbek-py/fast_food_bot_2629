@@ -39,7 +39,7 @@ async def add_category_handler(message: Message, state: FSMContext):
 async def receive_category_name(message: Message, state: FSMContext):
     name = message.text.strip()
     await state.update_data(category_name=name)
-    await message.answer(f"🆕 Category nomi: {name}\nTasdiqlaysizmi? (Ha/Yo‘q)")
+    await message.answer(f"🆕 Category nomi: {name}\nTasdiqlaysizmi? (Ha/Yo'q)")
     await state.set_state(CategoryStates.confirmation)
 
 # Confirm category
@@ -49,16 +49,16 @@ async def confirm_category(message: Message, state: FSMContext):
     name = data.get("category_name")
     if text in ("ha", "ha."):
         add_category(name)
-        await message.answer(f"✅ Category '{name}' muvaffaqiyatli qo‘shildi!", reply_markup=admin_main_menu())
+        await message.answer(f"✅ Category '{name}' muvaffaqiyatli qo'shildi!", reply_markup=admin_main_menu())
         await state.clear()
-    elif text in ("yo‘q", "yoq", "yo‘q."):
-        await message.answer("❌ Category qo‘shish bekor qilindi.", reply_markup=admin_main_menu())
+    elif text in ("yo'q", "yoq", "yo'q."):
+        await message.answer("❌ Category qo'shish bekor qilindi.", reply_markup=admin_main_menu())
         await state.clear()
     else:
-        await message.answer("Iltimos, faqat 'Ha' yoki 'Yo‘q' deb javob bering.")
+        await message.answer("Iltimos, faqat 'Ha' yoki 'Yo'q' deb javob bering.")
 
 # Admin: delete category
-async def delete_category_start(message: Message):
+async def delete_category_start(message: Message, state: FSMContext):
     if message.from_user.id != ADMIN_ID:
         await message.answer("Siz admin emassiz.")
         return
@@ -68,8 +68,9 @@ async def delete_category_start(message: Message):
         return
     keyboard = build_category_menu()
     await message.answer("O'chirish uchun category tanlang:", reply_markup=keyboard)
+    await state.set_state(CategoryStates.waiting_for_name)
 
-async def delete_category_confirm(message: Message):
+async def delete_category_confirm(message: Message, state: FSMContext):
     name = message.text
     # avoid deleting "⬅️ Orqaga"
     if name == "⬅️ Orqaga":
@@ -85,7 +86,7 @@ async def add_product_start(message: Message, state: FSMContext):
         return
     cats = get_all_categories()
     if not cats:
-        await message.answer("Avval category qo‘shing.", reply_markup=admin_main_menu())
+        await message.answer("Avval category qo'shing.", reply_markup=admin_main_menu())
         return
     # ask to choose category by name
     text = "Qaysi category ga product qo'shmoqchisiz? Iltimos category nomini yozing:"
@@ -150,7 +151,7 @@ async def product_receive_image(message: Message, state: FSMContext):
 
     # save product
     add_product(category_id, name, description, price, image_url=image_url, image_file_id=image_file_id)
-    await message.answer(f"✅ Mahsulot '{name}' qo‘shildi!", reply_markup=admin_main_menu())
+    await message.answer(f"✅ Mahsulot '{name}' qo'shildi!", reply_markup=admin_main_menu())
     await state.clear()
 
 # Admin: delete product

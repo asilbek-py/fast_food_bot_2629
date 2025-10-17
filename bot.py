@@ -42,7 +42,7 @@ dp.message.register(receive_category_name, StateFilter(CategoryStates.waiting_fo
 dp.message.register(confirm_category, StateFilter(CategoryStates.confirmation))
 
 dp.message.register(delete_category_start, F.text == "🗑️ Category o'chirish")
-dp.message.register(delete_category_confirm, F.text)  # naive: will be triggered for any text; but we will guard inside
+dp.message.register(delete_category_confirm, StateFilter(CategoryStates.waiting_for_name))  # naive: will be triggered for any text; but we will guard inside
 
 # admin product
 dp.message.register(add_product_start, F.text == "➕ Product qo'shish")
