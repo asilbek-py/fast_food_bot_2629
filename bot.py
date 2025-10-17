@@ -15,7 +15,7 @@ from handlers import (
     add_product_start, product_receive_category, product_receive_name,
     product_receive_description, product_receive_price, product_receive_image,
     delete_product_start, delete_product_choose_category, delete_product_confirm,
-    user_selects_category_show_products, user_selects_product_show_details
+    user_selects_category_show_products, user_selects_product_show_details, back_handler
 )
 from aiogram.types import Message
 
@@ -30,6 +30,7 @@ dp = Dispatcher()
 # register handlers
 dp.message.register(command_start_handler, CommandStart())
 dp.message.register(show_menu_handler, F.text == "📂 Menyu")
+dp.message.register(back_handler, F.text == "⬅️ Orqaga")
 
 # admin category
 dp.message.register(add_category_handler, F.text == "➕ Category qo'shish")

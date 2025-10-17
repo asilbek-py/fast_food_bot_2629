@@ -22,6 +22,11 @@ async def command_start_handler(message: Message):
     else:
         await message.answer(f"Assalomu alaykum, {message.from_user.full_name}!", reply_markup=main_menu())
 
+async def back_handler(message: Message, state: FSMContext):
+    await message.answer("Asosiy menyuga qaytildi.", reply_markup=main_menu())
+    await state.clear()
+
+
 # Show categories
 async def show_menu_handler(message: Message, state: FSMContext):
     # show dynamic category keyboard

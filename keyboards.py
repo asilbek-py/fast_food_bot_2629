@@ -17,7 +17,7 @@ def admin_main_menu():
             [KeyboardButton(text="📂 Menyu"), KeyboardButton(text="🛒 Mening Savatim")],
             [KeyboardButton(text="➕ Category qo'shish"), KeyboardButton(text="🗑️ Category o'chirish")],
             [KeyboardButton(text="➕ Product qo'shish"), KeyboardButton(text="🗑️ Product o'chirish")],
-            [KeyboardButton(text="🔙 Orqaga")]
+            [KeyboardButton(text="⬅️ Orqaga")]
         ],
         resize_keyboard=True,
         input_field_placeholder="Admin:"
